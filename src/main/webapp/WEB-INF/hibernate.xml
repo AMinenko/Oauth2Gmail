@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!--For Spring data jap entityManagerFactory (LocalContainerEntityManagerFactoryBean) must be used.
+    We obtain a entity manager instead of session factory when working directly with hibernate, also possible to use HibernateTransactionManager
+    but better to switch to JPA standards and not dependv totally  on hibernate as we use spring data jpa, which can work with different orm.
+     Here we use JPA transaction manager-->
+
+
+    <!-- DataSource! -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.driver}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="initialSize" value="5" />
+        <property name="maxActive" value="10" />
+        <property name="testOnBorrow" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="3600" />
+        <property name="validationQuery" value="SELECT 1" />
+    </bean>
+
+    <!--Spring data jpa configuration -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.anmi.mailclient.core.dao.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+
+
+    <jpa:repositories base-package="com.anmi.mailclient.core.dao"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven />
+
+
+
+<!-- LocalSessionFactoryBean is used as a sessionfactory to use with plain hibernate but it cannot work with spring data jpa.
+For spring data jpa must be used entitymanager LocalContainerEntityManagerFactoryBean
+
+ <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.anmi.mailclient.core" />
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.jdbc.batch_size">20</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.hbm2ddl.import_files">${hibernate.hbm2ddl.import_files}</prop>
+            </props>
+        </property>
+    </bean>
+
+      <bean class="org.springframework.orm.hibernate4.HibernateTransactionManager" id="transactionManager">
+        <property ref="sessionFactory" name="sessionFactory" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    -->
+
+</beans>
