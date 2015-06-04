@@ -5,7 +5,7 @@ import com.anmi.mailclient.core.rest.Request;
 import com.anmi.mailclient.core.rest.RestBasedAPIService;
 import com.anmi.mailclient.core.rest.RestResource;
 import com.anmi.mailclient.core.security.oauth.OAuth2GoogleService;
-import com.anmi.mailclient.core.security.oauth.TokenProvider;
+import com.anmi.mailclient.core.security.oauth.GoogleContextProvider;
 
 import com.anmi.mailclient.web.dto.google.gmail.GmailDto;
 import com.anmi.mailclient.web.dto.google.oauth.GoogleAuthTokenDto;
@@ -13,7 +13,6 @@ import org.codehaus.plexus.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Decoder;
 
 import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
@@ -28,9 +27,9 @@ import java.util.Properties;
 import static org.springframework.http.HttpMethod.GET;
 
 @Service
-public class GmailService extends RestBasedAPIService implements com.anmi.mailclient.core.service.GmailService {
+public class GmailServiceImpl extends RestBasedAPIService implements com.anmi.mailclient.core.service.GmailService {
     @Autowired
-    private TokenProvider tokenProvider;
+    private GoogleContextProvider googleContextProvider;
 
     @Autowired
     private ConfigurationService configurationService;
@@ -59,7 +58,7 @@ public class GmailService extends RestBasedAPIService implements com.anmi.mailcl
     @Override
     public String getAuthorizationToken() {
         String authToken = "";
-        GoogleAuthTokenDto googleAuthTokenDto = (GoogleAuthTokenDto) tokenProvider.getToken();
+        GoogleAuthTokenDto googleAuthTokenDto = (GoogleAuthTokenDto) googleContextProvider.getToken();
         if (googleAuthTokenDto != null) {
             authToken = googleAuthTokenDto.getTokenType() + " " + googleAuthTokenDto.getAccessToken();
         }

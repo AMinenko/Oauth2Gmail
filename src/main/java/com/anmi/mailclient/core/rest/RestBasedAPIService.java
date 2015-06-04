@@ -5,6 +5,7 @@ import com.anmi.mailclient.core.security.oauth.OAuth2GoogleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 

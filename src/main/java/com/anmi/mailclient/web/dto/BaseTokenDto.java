@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class BaseTokenDto {
     private CompanyType companyType;
 
-
     public enum CompanyType {
         TYPE_GOOGLE("Google"),
         TYPE_AZURE("Azure");
@@ -23,4 +22,11 @@ public class BaseTokenDto {
 
     }
 
+    public CompanyType getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(CompanyType companyType) {
+        this.companyType = companyType;
+    }
 }

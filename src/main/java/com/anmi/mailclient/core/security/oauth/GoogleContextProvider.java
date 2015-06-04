@@ -5,18 +5,35 @@ package com.anmi.mailclient.core.security.oauth;
         import org.springframework.stereotype.Component;
 
 @Component
-public class TokenProvider {
+public class GoogleContextProvider {
     private BaseTokenDto baseTokenDto;
-    private ThreadLocal<BaseTokenDto> tokenLocal = new ThreadLocal<>();
+    private String path;
+    private String scope;
 
 
     public BaseTokenDto getToken(){
-      //  BaseTokenDto baseTokenDto = tokenLocal.get();
         return baseTokenDto;
     }
 
 
     public void setToken(GoogleAuthTokenDto googleAuthTokenDto) {
         this.baseTokenDto=googleAuthTokenDto;
+    }
+
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }

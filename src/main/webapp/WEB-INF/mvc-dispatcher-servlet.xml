@@ -6,11 +6,6 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <import resource="mvc.xml"/>
-    <!--
-    Usual configuration. Not require as we don't use neither spring security nor hibernate
-    <import resource="security.xml"/>
-    <import resource="hibernate.xml"/>
-    -->
 
     <context:property-placeholder  location="classpath:config/jdbc.properties, classpath:config/application.properties"/>
     <context:component-scan base-package="com.anmi.mailclient"/>

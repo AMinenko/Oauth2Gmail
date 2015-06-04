@@ -1,6 +1,7 @@
-package com.anmi.mailclient.web.controllers.google;
+package com.anmi.mailclient.web.controllers.google.gmail;
 
 import com.anmi.mailclient.core.service.GmailService;
+import com.anmi.mailclient.web.controllers.google.BaseGoogleController;
 import com.anmi.mailclient.web.dto.google.gmail.GmailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

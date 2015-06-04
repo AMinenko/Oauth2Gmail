@@ -6,7 +6,10 @@
 <body>
 HELLO
 <div>
-    <button onclick="window.location.href='/g/gmail'">Get Google Mails</button>
+    <button onclick="window.location.href='g/gmail'">Get Google Mails</button>
+</div>
+<div>
+    <button onclick="window.location.href='g/drive'">Get Google Drive</button>
 </div>
 </body>
 </html>
