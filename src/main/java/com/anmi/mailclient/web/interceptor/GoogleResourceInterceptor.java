@@ -3,7 +3,6 @@ package com.anmi.mailclient.web.interceptor;
 import com.anmi.mailclient.core.configuration.ConfigurationProperties;
 import com.anmi.mailclient.core.configuration.ConfigurationService;
 import com.anmi.mailclient.core.security.oauth.GoogleContextProvider;
-import com.anmi.mailclient.web.dto.BaseTokenDto;
 import com.anmi.mailclient.web.dto.google.oauth.GoogleAuthTokenDto;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
 
 public class GoogleResourceInterceptor extends HandlerInterceptorAdapter {
     public static String path = null;
@@ -25,7 +22,7 @@ public class GoogleResourceInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        GoogleAuthTokenDto googleAuthTokenDto =(GoogleAuthTokenDto) googleContextProvider.getToken();
+        GoogleAuthTokenDto googleAuthTokenDto = googleContextProvider.getToken();
         String authUrl = "/g/auth";
         String code = (String) request.getParameter("code");
 
@@ -91,22 +88,5 @@ public class GoogleResourceInterceptor extends HandlerInterceptorAdapter {
     }
 
 
-   /* private boolean checkTokenAgainstRequest(GoogleAuthTokenDto googleAuthTokenDto, HttpServletRequest request) {
-        String path = request.getServletPath();
-        BaseTokenDto.AppType appType = googleAuthTokenDto.getAppType();
-
-        if ((appType.equals(BaseTokenDto.AppType.TYPE_DRIVE) && !path.contains("drive")) ||
-                (appType.equals(BaseTokenDto.AppType.TYPE_GMAIL) && !path.contains("gmail"))
-                ) {
-
-            return false;
-        }
-        return true;
-    }*/
-
-   /* private GoogleAuthTokenDto getToken(HttpServletRequest request) {
-        return (GoogleAuthTokenDto) request.getSession().getAttribute("access_token");
-    }
-*/
 
 }

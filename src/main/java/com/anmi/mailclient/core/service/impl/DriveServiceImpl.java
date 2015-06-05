@@ -17,10 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
+import com.google.api.services.drive.model.File;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -66,12 +70,14 @@ public class DriveServiceImpl extends RestBasedAPIService implements DriveServic
     }
 
     @Override
-    public File get(String fileId) {
+    public InputStream get(String fileId) {
         HttpHeaders headers = new HttpHeaders();
+        Map<String, String> params = new HashMap<String, String>();
         headers.add(OAuth2GoogleService.AUTHORIZATION, "");
-        Request.Builder<HttpResponse> request = new Request.Builder<>(GET, RestResource.DRIVE_GET_FILE.getPath(fileId));
-        HttpResponse result = execute(request.headers(headers).responseClass(HttpResponse.class).build());
-        return null;
+        params.put("alt","media");
+        Request.Builder<byte[]> request = new Request.Builder<>(GET, RestResource.DRIVE_GET_FILE.getPath(fileId));
+        byte[] result = execute(request.headers(headers).setUrlParams(params).responseClass(byte[].class).build());
+        return new ByteArrayInputStream(result);
     }
 
     @Override

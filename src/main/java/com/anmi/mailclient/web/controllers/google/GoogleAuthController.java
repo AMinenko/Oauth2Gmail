@@ -4,7 +4,6 @@ import com.anmi.mailclient.core.configuration.ConfigurationProperties;
 import com.anmi.mailclient.core.configuration.ConfigurationService;
 import com.anmi.mailclient.core.security.oauth.OAuth2GoogleService;
 import com.anmi.mailclient.core.security.oauth.GoogleContextProvider;
-import com.anmi.mailclient.web.dto.BaseTokenDto;
 import com.anmi.mailclient.web.dto.google.oauth.GoogleAuthTokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -18,8 +17,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class GoogleAuthController extends BaseGoogleController {

@@ -4,14 +4,12 @@ import com.anmi.mailclient.core.configuration.ConfigurationProperties;
 import com.anmi.mailclient.core.configuration.ConfigurationService;
 import com.anmi.mailclient.core.rest.Request;
 import com.anmi.mailclient.core.rest.RestBasedAPIService;
-import com.anmi.mailclient.web.dto.BaseTokenDto;
 import com.anmi.mailclient.web.dto.google.oauth.GoogleAuthTokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class OAuth2GoogleService extends RestBasedAPIService {
@@ -34,7 +32,7 @@ public class OAuth2GoogleService extends RestBasedAPIService {
     }
 
 
-    public BaseTokenDto getAuthToken(String code) {
+    public GoogleAuthTokenDto getAuthToken(String code) {
 
         String url = configurationService.getProperty(ConfigurationProperties.OAUTH_TOKEN_URL);
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();

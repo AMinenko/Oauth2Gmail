@@ -1,17 +1,16 @@
 package com.anmi.mailclient.core.security.oauth;
 
-        import com.anmi.mailclient.web.dto.BaseTokenDto;
         import com.anmi.mailclient.web.dto.google.oauth.GoogleAuthTokenDto;
         import org.springframework.stereotype.Component;
 
 @Component
 public class GoogleContextProvider {
-    private BaseTokenDto baseTokenDto;
+    private GoogleAuthTokenDto baseTokenDto;
     private String path;
     private String scope;
 
 
-    public BaseTokenDto getToken(){
+    public GoogleAuthTokenDto getToken(){
         return baseTokenDto;
     }
 

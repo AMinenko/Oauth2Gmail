@@ -5,10 +5,11 @@ import com.anmi.mailclient.web.dto.google.gmail.GmailDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public interface DriveService {
-    Object get(String fileId);
+    InputStream get(String fileId);
 
     DriveDto all();
 

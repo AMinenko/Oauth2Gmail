@@ -10,7 +10,7 @@
   File List
   <ol>
     <c:forEach var="file" items="${files}">
-        <li><c:url value="/drive" context="/mail-app/g" var="fileUrl">
+        <li><c:url value="/get" context="/mail-app/g/drive" var="fileUrl">
                 <c:param name="fileId" value ="${file.id}"/>
             </c:url>
            <a href=<c:out value="${fileUrl}"/>> ${file.title}</a>

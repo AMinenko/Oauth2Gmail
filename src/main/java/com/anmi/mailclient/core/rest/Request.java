@@ -3,6 +3,8 @@ package com.anmi.mailclient.core.rest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
+import java.util.Map;
+
 public class Request<R> {
     private String uri;
     private Object body;
@@ -10,6 +12,7 @@ public class Request<R> {
     private HttpHeaders headers;
     private HttpMethod method;
     private boolean anonymous;
+    private Map<String, String> urlParams;
 
     public String getUri() {
         return uri;
@@ -59,6 +62,14 @@ public class Request<R> {
         this.anonymous = anonymous;
     }
 
+    public Map<String, String> getUrlParams() {
+        return urlParams;
+    }
+
+    public void setUrlParams(Map<String, String> urlParams) {
+        this.urlParams = urlParams;
+    }
+
     public static class Builder<R> {
         private String uri = "";
         private Object body;
@@ -66,6 +77,7 @@ public class Request<R> {
         private HttpHeaders headers;
         private HttpMethod method;
         private boolean anonymous;
+        public Map<String, String> urlParams;
 
         public Builder(HttpMethod method) {
             this.method = method;
@@ -101,6 +113,15 @@ public class Request<R> {
             return this;
         }
 
+        public Map<String, String> getUrlParams() {
+            return urlParams;
+        }
+
+        public Builder<R> setUrlParams(Map<String, String> urlParams) {
+            this.urlParams = urlParams;
+            return this;
+        }
+
         public final Request<R> build() {
             Request<R> request = new Request<>();
             request.setMethod(method);
@@ -109,6 +130,7 @@ public class Request<R> {
             request.setResponseClass(responseClass);
             request.setHeaders(headers == null ? new HttpHeaders() : headers);
             request.setAnonymous(anonymous);
+            request.setUrlParams(urlParams);
             return request;
         }
 

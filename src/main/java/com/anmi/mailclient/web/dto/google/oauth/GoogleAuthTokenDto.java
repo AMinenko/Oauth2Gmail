@@ -1,9 +1,8 @@
 package com.anmi.mailclient.web.dto.google.oauth;
 
-import com.anmi.mailclient.web.dto.BaseTokenDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GoogleAuthTokenDto extends BaseTokenDto{
+public class GoogleAuthTokenDto{
 
     @JsonProperty("access_token")
     private String accessToken;
